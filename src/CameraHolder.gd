@@ -1,7 +1,7 @@
 extends Spatial
 
 # Reference to the ball
-onready var ball = get_node("../RigidBody")
+onready var ball = get_node("../Player")
 onready var camera = $Camera
 
 # Camera follow smoothing factor

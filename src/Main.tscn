@@ -1,14 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Floor.tscn" type="PackedScene" id=1]
-[ext_resource path="res://RigidBody.gd" type="Script" id=2]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://CameraHolder.gd" type="Script" id=3]
 [ext_resource path="res://Box.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Main.gd" type="Script" id=5]
-
-[sub_resource type="SphereMesh" id=1]
-
-[sub_resource type="SphereShape" id=2]
 
 [node name="Main" type="Spatial"]
 script = ExtResource( 5 )
@@ -19,19 +15,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.282283, -0.439336, 0.511783 
 [node name="Spatial" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.110444, 6.24944, 8.41373 )
 
-[node name="RigidBody" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.97863, 0 )
-script = ExtResource( 2 )
-
-[node name="MeshInstance" type="MeshInstance" parent="RigidBody"]
-mesh = SubResource( 1 )
-
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
-shape = SubResource( 2 )
-
 [node name="CameraHolder" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.97863, 0 )
 script = ExtResource( 3 )
 
 [node name="Camera" type="Camera" parent="CameraHolder"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.97854 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.241191, 2.0498, -0.94793 )

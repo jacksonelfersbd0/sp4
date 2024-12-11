@@ -33,5 +33,3 @@ func _process(delta):
 	# Apply movement using forces
 	if move_dir != Vector3.ZERO:
 		add_force(move_dir.normalized() * speed, Vector3.ZERO)
-
-
