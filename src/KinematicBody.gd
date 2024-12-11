@@ -5,7 +5,7 @@ var speed = 10.0
 var rotation_sense = 1.0 # Adjust to reverse direction if needed
 
 # Reference to the camera and its holder
-onready var camera_holder = $CameraHolder
+onready var camera_holder = get_node("../CameraHolder")
 onready var camera = camera_holder.get_node("Camera")
 
 # Vector to move the ball

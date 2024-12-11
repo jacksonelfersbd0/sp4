@@ -27,8 +27,9 @@ mesh = SubResource( 1 )
 [node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
 shape = SubResource( 2 )
 
-[node name="CameraHolder" type="Spatial" parent="RigidBody"]
+[node name="CameraHolder" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.97863, 0 )
 script = ExtResource( 3 )
 
-[node name="Camera" type="Camera" parent="RigidBody/CameraHolder"]
+[node name="Camera" type="Camera" parent="CameraHolder"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.97854 )
