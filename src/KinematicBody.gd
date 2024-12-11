@@ -1,8 +1,7 @@
 extends RigidBody
 
 # Movement speed
-var speed = 10.0
-var rotation_sense = 1.0 # Adjust to reverse direction if needed
+var speed = 40.0
 
 # Reference to the camera and its holder
 onready var camera_holder = get_node("../CameraHolder")
@@ -10,10 +9,6 @@ onready var camera = camera_holder.get_node("Camera")
 
 # Vector to move the ball
 var velocity = Vector3()
-
-#func _ready():
-	# Set the rigid body mode to "Character" to simulate a more controlled ball movement
-	#mode = RigidBody.MODE_KINEMATIC
 
 func _process(delta):
 	# Get the camera's forward direction and right direction
@@ -31,6 +26,12 @@ func _process(delta):
 	if Input.is_action_pressed("ui_right"):
 		move_dir += right
 
+	# Add forward movement if the left mouse button is held
+	if Input.is_mouse_button_pressed(BUTTON_LEFT):
+		move_dir += forward
+
 	# Apply movement using forces
-	add_force(move_dir.normalized() * speed, Vector3.ZERO)
+	if move_dir != Vector3.ZERO:
+		add_force(move_dir.normalized() * speed, Vector3.ZERO)
+
 
