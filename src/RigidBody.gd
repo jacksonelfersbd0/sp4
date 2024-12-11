@@ -1,30 +1,37 @@
 extends RigidBody
 
-# Speed and movement direction
-var speed = 1.0
-var direction = Vector3.ZERO
+# Movement speed
+var speed = 40.0
+
+# Reference to the camera and its holder
+onready var camera_holder = get_node("../CameraHolder")
+onready var camera = camera_holder.get_node("Camera")
+
+# Vector to move the ball
+var velocity = Vector3()
 
 func _process(delta):
-	direction = Vector3.ZERO
+	# Get the camera's forward direction and right direction
+	var forward = -camera.global_transform.basis.z.normalized()  # Negative Z is forward
+	var right = camera.global_transform.basis.x.normalized()    # X is right
 
-	# Keyboard Input
+	# Get input from the player
+	var move_dir = Vector3.ZERO
 	if Input.is_action_pressed("ui_up"):
-		direction += Vector3.FORWARD
+		move_dir += forward
 	if Input.is_action_pressed("ui_down"):
-		direction += Vector3.BACK
+		move_dir -= forward
 	if Input.is_action_pressed("ui_left"):
-		direction += Vector3.LEFT
+		move_dir -= right
 	if Input.is_action_pressed("ui_right"):
-		direction += Vector3.RIGHT
+		move_dir += right
 
-	# Normalize and apply force
-	if direction != Vector3.ZERO:
-		direction = direction.normalized()
-		apply_central_impulse(direction * speed)
+	# Add forward movement if the left mouse button is held
+	if Input.is_mouse_button_pressed(BUTTON_LEFT):
+		move_dir += forward
+
+	# Apply movement using forces
+	if move_dir != Vector3.ZERO:
+		add_force(move_dir.normalized() * speed, Vector3.ZERO)
 
 
-func _integrate_forces(state):
-	# Gyroscope-based tilt (for mobile)
-	if OS.has_feature("mobile"):
-		var tilt = Input.get_accelerometer()  # Get accelerometer data
-		apply_central_impulse(Vector3(-tilt.y, 0, -tilt.x) * speed)
